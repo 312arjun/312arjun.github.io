@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Arjun Soundarajan — About</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/about.css">
+</head>
+<body>
+
+<nav class="navbar">
+  <a class="logo" href="index.html" id="brandLogo">Arjun <span class="slash">//</span></a>
+  <ul class="nav-links">
+    <li><a href="index.html#work">WORK</a></li>
+    <li><a href="about.html" class="active">ABOUT</a></li>
+    <li><a href="projects.html">PROJECTS</a></li>
+    <li><a href="contact.html">CONTACT</a></li>
+  </ul>
+</nav>
+
+<main>
+  <!-- ========== TOP ROW ========== -->
+  <section class="top-row" aria-label="About intro">
+    <div class="bio-col">
+      <div class="section-tag" id="aboutTag">01. ABOUT</div>
+      <h1 id="aboutHeadline">Hi, I'm <span class="accent">Arjun Soundarajan</span></h1>
+      <div class="role" id="aboutRole">Software Developer</div>
+      <p class="bio" id="aboutBio"></p>
+      <div class="location"><span class="dot" aria-hidden="true"></span><span id="aboutLocation">Bengaluru, India</span></div>
+      <div class="btn-row">
+        <a class="btn btn-primary" id="resumeBtn" href="docs/Arjun%27s_Resume.pdf" download="Arjun_Soundarajan_Resume.pdf">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12"/><path d="M7 10l5 5 5-5"/><path d="M5 21h14"/></svg>
+          Download Resume
+        </a>
+        <a class="btn btn-text" id="contactBtn" href="contact.html">Get in touch →</a>
+      </div>
+    </div>
+
+    <div class="portrait-col">
+      <div class="portrait-frame" id="portraitFrame">
+        <img id="portraitImg" src="" alt="Portrait of Arjun Soundarajan" />
+        <div class="portrait-placeholder" id="portraitPlaceholder">
+          <div class="initials" id="portraitInitials">AS</div>
+          <div class="hint">Add assets/about_photo.png</div>
+        </div>
+        <div class="status-pill" id="statusPill"><span class="live" aria-hidden="true"></span><span id="statusText">Building software, IoT and automation.</span></div>
+      </div>
+    </div>
+
+    <aside class="services-card" aria-label="What I do">
+      <div class="card-title"><span class="dot" aria-hidden="true"></span><span id="servicesTitle">What I Do</span></div>
+      <div id="servicesList"></div>
+    </aside>
+  </section>
+
+  <!-- ========== MIDDLE ROW ========== -->
+  <section class="mid-row" aria-label="Journey and skills">
+    <div class="journey-col">
+      <div class="section-tag" id="journeyTag">02. JOURNEY</div>
+      <h2 id="journeyHeadline">My <span class="accent">Journey</span></h2>
+      <div class="timeline" id="timeline"></div>
+    </div>
+
+    <div class="skills-col">
+      <div class="section-tag" id="skillsTag">03. SKILLS</div>
+      <h2 id="skillsHeadline">Technologies I <span class="accent">Work With</span></h2>
+      <div class="skills-grid" id="skillsGrid"></div>
+    </div>
+  </section>
+
+  <!-- ========== STATS ========== -->
+  <section class="stats-bar" id="statsBar" aria-label="Highlights"></section>
+</main>
+
+<footer id="footerText">Arjun // ABOUT</footer>
+
+<script src="js/about.js"></script>
+</body>
+</html>

@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Arjun Soundarajan — Working Set</title>
+<link rel="stylesheet" href="css/portfolio-shelf.css">
+</head>
+<body>
+<div class="rack">
+
+  <div class="fascia"><span class="led" id="fasciaLed"></span><span class="nameplate">Arjun // WORKING SET</span></div>
+  <h1>Apps I've built for <em>my</em> desk.</h1>
+  <p class="sub">Three Windows tools, browsed like a shelf of CDs. Drag sideways, click a case, or use the arrows.</p>
+
+  <div class="shelf-wrap">
+    <button class="nudge prev" id="prevBtn" aria-label="Previous">‹</button>
+    <div class="shelf" id="shelf">
+      <div class="shelf-stage" id="stage"></div>
+    </div>
+    <button class="nudge next" id="nextBtn" aria-label="Next">›</button>
+  </div>
+
+  <div class="dots" id="dots"></div>
+
+  <div class="detail" id="detail">
+    <div class="detail-led" id="detailLed"></div>
+    <div>
+      <h2 id="detailTitle"></h2>
+      <p id="detailBlurb"></p>
+      <div class="tags" id="detailTags"></div>
+      <div class="links" id="detailLinks"></div>
+    </div>
+  </div>
+
+</div>
+
+<script src="js/portfolio-shelf.js"></script>
+</body>
+</html>
