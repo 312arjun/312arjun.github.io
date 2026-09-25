@@ -1,0 +1,316 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Arjun Soundarajan — Working Set</title>
+<style>
+  :root{
+    --chassis:#181a1e;
+    --chassis-deep:#101114;
+    --panel:#22252b;
+    --panel-hi:#33363d;
+    --line:rgba(238,240,242,.09);
+    --ink:#eef0f2;
+    --ink-soft:#9aa0aa;
+    --mono: ui-monospace, "SF Mono", "Cascadia Code", "JetBrains Mono", Consolas, monospace;
+    --sans: -apple-system, "Segoe UI", system-ui, sans-serif;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;background:var(--chassis);color:var(--ink);font-family:var(--sans);
+    -webkit-font-smoothing:antialiased; overflow-x:hidden;}
+  body{
+    background:
+      radial-gradient(1200px 600px at 50% -10%, #24272d 0%, transparent 60%),
+      linear-gradient(180deg,var(--chassis) 0%, var(--chassis-deep) 100%);
+    min-height:100vh;
+  }
+  .rack{max-width:960px;margin:0 auto;padding:56px 24px 80px;}
+
+  /* ---------- header / fascia ---------- */
+  .fascia{display:flex;align-items:center;gap:10px;justify-content:center;margin-bottom:28px;}
+  .led{width:8px;height:8px;border-radius:50%;background:#ffb347;box-shadow:0 0 8px 2px rgba(255,179,71,.65);
+    animation:pulse 2.6s ease-in-out infinite;}
+  @keyframes pulse{0%,100%{opacity:.55}50%{opacity:1}}
+  .nameplate{font-family:var(--mono);font-size:11px;letter-spacing:.16em;color:var(--ink-soft);}
+
+  h1{
+    text-align:center;font-family:var(--sans);font-weight:700;
+    font-size:clamp(30px,5vw,48px);letter-spacing:-0.03em;line-height:1.05;margin:0 0 10px;
+  }
+  h1 em{font-style:normal;color:#ffb347;}
+  .sub{text-align:center;color:var(--ink-soft);font-size:15px;max-width:480px;margin:0 auto 52px;line-height:1.55;}
+
+  /* ---------- shelf ---------- */
+  .shelf-wrap{position:relative;}
+  .shelf{
+    position:relative;height:300px;perspective:1400px;
+    display:flex;align-items:center;justify-content:center;
+    touch-action:pan-y;user-select:none;cursor:grab;
+  }
+  .shelf.dragging{cursor:grabbing;}
+  .shelf-stage{position:relative;width:1px;height:1px;transform-style:preserve-3d;}
+
+  .case{
+    position:absolute;top:-118px;left:-95px;width:190px;height:236px;
+    transform-style:preserve-3d;transition:transform .55s cubic-bezier(.22,.9,.28,1), filter .55s;
+    cursor:pointer;
+  }
+  .case .cover, .case .spine, .case .back{
+    position:absolute;inset:0;border-radius:6px;backface-visibility:hidden;
+  }
+  .case .cover{
+    transform:translateZ(18px);
+    background:linear-gradient(155deg,var(--panel-hi),var(--panel));
+    border:1px solid var(--line);
+    box-shadow:0 22px 40px -18px rgba(0,0,0,.6);
+    display:flex;flex-direction:column;overflow:hidden;
+  }
+  .case .back{
+    transform:translateZ(-18px) rotateY(180deg);
+    background:var(--panel);border:1px solid var(--line);
+  }
+  .case .spine{
+    width:36px;height:236px;left:-18px;top:0;
+    transform:rotateY(-90deg) translateZ(18px);
+    background:linear-gradient(180deg,#2a2d33,#1f2126);
+    border:1px solid var(--line);
+    display:flex;align-items:center;justify-content:center;
+  }
+  .spine span{
+    writing-mode:vertical-rl;font-family:var(--mono);font-size:10px;letter-spacing:.14em;
+    color:var(--ink-soft);white-space:nowrap;
+  }
+
+  .art{flex:1;position:relative;display:flex;align-items:center;justify-content:center;}
+  .art svg{width:72%;height:72%;}
+  .cover-title{
+    padding:12px 14px 14px;border-top:1px solid var(--line);
+    font-family:var(--mono);font-size:11px;letter-spacing:.04em;color:var(--ink);
+  }
+  .cover-title small{display:block;margin-top:3px;color:var(--ink-soft);font-size:9.5px;letter-spacing:.1em;}
+
+  .case[data-offset="0"]{z-index:30;}
+  .case:not([data-offset="0"]) .cover{filter:saturate(.7) brightness(.82);}
+
+  .nudge{
+    position:absolute;top:50%;transform:translateY(-50%);
+    width:38px;height:38px;border-radius:50%;border:1px solid var(--line);
+    background:rgba(34,37,43,.7);color:var(--ink-soft);font-size:16px;
+    display:flex;align-items:center;justify-content:center;cursor:pointer;
+    transition:color .2s,border-color .2s,background .2s;z-index:40;
+  }
+  .nudge:hover{color:var(--ink);border-color:rgba(238,240,242,.25);background:var(--panel-hi);}
+  .nudge.prev{left:0}
+  .nudge.next{right:0}
+
+  .dots{display:flex;justify-content:center;gap:7px;margin-top:26px;}
+  .dot{width:6px;height:6px;border-radius:50%;background:var(--line);cursor:pointer;transition:background .2s,transform .2s;}
+  .dot.active{background:#ffb347;transform:scale(1.3);}
+
+  /* ---------- detail panel ---------- */
+  .detail{
+    margin-top:46px;border:1px solid var(--line);border-radius:14px;background:var(--panel);
+    padding:30px 32px;display:grid;grid-template-columns:auto 1fr;gap:26px;align-items:flex-start;
+  }
+  .detail-led{width:10px;height:10px;border-radius:50%;margin-top:6px;box-shadow:0 0 10px 2px currentColor;}
+  .detail h2{margin:0 0 8px;font-size:22px;letter-spacing:-0.01em;}
+  .detail p{margin:0 0 16px;color:var(--ink-soft);font-size:14.5px;line-height:1.6;max-width:56ch;}
+  .tags{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:18px;}
+  .tag{font-family:var(--mono);font-size:10.5px;letter-spacing:.06em;color:var(--ink-soft);
+    border:1px solid var(--line);border-radius:999px;padding:4px 10px;}
+  .links{display:flex;gap:10px;flex-wrap:wrap;}
+  .links a{
+    font-family:var(--mono);font-size:11.5px;letter-spacing:.05em;color:var(--ink);
+    border:1px solid var(--line);border-radius:8px;padding:8px 14px;text-decoration:none;
+    transition:border-color .2s,background .2s;
+  }
+  .links a:hover{border-color:rgba(238,240,242,.3);background:var(--panel-hi);}
+
+  @media (max-width:640px){
+    .rack{padding:40px 16px 60px;}
+    .shelf{height:250px;}
+    .case{top:-96px;left:-77px;width:154px;height:192px;}
+    .case .spine{width:28px;height:192px;left:-14px;transform:rotateY(-90deg) translateZ(14px);}
+    .detail{grid-template-columns:1fr;padding:24px 22px;}
+  }
+</style>
+</head>
+<body>
+<div class="rack">
+
+  <div class="fascia"><span class="led" id="fasciaLed"></span><span class="nameplate">Arjun // WORKING SET</span></div>
+  <h1>Apps I've built for <em>my</em> desk.</h1>
+  <p class="sub">Three Windows tools, browsed like a shelf of CDs. Drag sideways, click a case, or use the arrows.</p>
+
+  <div class="shelf-wrap">
+    <button class="nudge prev" id="prevBtn" aria-label="Previous">‹</button>
+    <div class="shelf" id="shelf">
+      <div class="shelf-stage" id="stage"></div>
+    </div>
+    <button class="nudge next" id="nextBtn" aria-label="Next">›</button>
+  </div>
+
+  <div class="dots" id="dots"></div>
+
+  <div class="detail" id="detail">
+    <div class="detail-led" id="detailLed"></div>
+    <div>
+      <h2 id="detailTitle"></h2>
+      <p id="detailBlurb"></p>
+      <div class="tags" id="detailTags"></div>
+      <div class="links" id="detailLinks"></div>
+    </div>
+  </div>
+
+</div>
+
+<script>
+  // ---- swap in real screenshots later by changing `art` to an <img> if you like ----
+  const APPS = [
+    {
+      id: "ha-dock",
+      title: "HA Dock",
+      spine: "HA DOCK",
+      color: "#ffb347",
+      blurb: "A screen-edge notch widget for Windows that docks Home Assistant controls right into the desktop — including Lampcord, a pull-chain light switch you tug like the real thing.",
+      tags: ["Windows", "PySide6", "Home Assistant"],
+      links: [{ label: "GitHub →", href: "https://github.com/312arjun/ha-dockX" }],
+      art: `<svg viewBox="0 0 100 100" fill="none">
+        <rect x="18" y="30" width="64" height="46" rx="10" stroke="#ffb347" stroke-width="3"/>
+        <path d="M40 30 Q50 14 60 30" stroke="#ffb347" stroke-width="3" fill="none"/>
+        <circle cx="50" cy="53" r="10" fill="#ffb347" opacity=".85"/>
+        <line x1="50" y1="63" x2="50" y2="80" stroke="#ffb347" stroke-width="2.5"/>
+        <circle cx="50" cy="83" r="3" fill="#ffb347"/>
+      </svg>`
+    },
+    {
+      id: "iphone-companion",
+      title: "iPhone Companion",
+      spine: "IPHONE COMPANION",
+      color: "#4fd1c5",
+      blurb: "Bridges an iPhone's notifications, calls, and now-playing media into a native Windows app over Bluetooth LE (ANCS/AMS) — no cables, no cloud relay, just your two devices talking directly.",
+      tags: ["Windows", "Bluetooth LE", "v2.1.0"],
+      links: [{ label: "GitHub →", href: "https://github.com/312arjun/iphone-companion" }],
+      art: `<svg viewBox="0 0 100 100" fill="none">
+        <rect x="35" y="14" width="30" height="72" rx="9" stroke="#4fd1c5" stroke-width="3"/>
+        <line x1="42" y1="24" x2="58" y2="24" stroke="#4fd1c5" stroke-width="2.5"/>
+        <path d="M68 40 L80 50 L68 60 M68 60 L80 50 M62 30 L62 70" stroke="#4fd1c5" stroke-width="2.5" opacity=".8"/>
+        <circle cx="80" cy="50" r="2.6" fill="#4fd1c5"/>
+      </svg>`
+    },
+    {
+      id: "notifi",
+      title: "notifi",
+      spine: "NOTIFI",
+      color: "#7ee787",
+      blurb: "Forwards Windows toast notifications straight to WhatsApp through a self-hosted OpenWA gateway, so you never miss a desktop alert while you're away from the machine.",
+      tags: ["Windows", "OpenWA", "Gateway"],
+      links: [],
+      art: `<svg viewBox="0 0 100 100" fill="none">
+        <rect x="16" y="26" width="46" height="32" rx="7" stroke="#7ee787" stroke-width="3"/>
+        <path d="M24 58 L24 68 L34 58" stroke="#7ee787" stroke-width="3" fill="none"/>
+        <path d="M52 42 L84 42 M52 52 L74 52" stroke="#7ee787" stroke-width="3" opacity=".55"/>
+        <path d="M64 66 L76 78 M76 66 L64 78" stroke="#7ee787" stroke-width="3" opacity=".9"/>
+      </svg>`
+    }
+  ];
+
+  const stage = document.getElementById("stage");
+  const shelf = document.getElementById("shelf");
+  const dotsEl = document.getElementById("dots");
+  let selected = 0;
+
+  APPS.forEach((app, i) => {
+    const el = document.createElement("div");
+    el.className = "case";
+    el.dataset.index = i;
+    el.innerHTML = `
+      <div class="back"></div>
+      <div class="spine"><span>${app.spine}</span></div>
+      <div class="cover">
+        <div class="art">${app.art}</div>
+        <div class="cover-title">${app.title}<small>${app.tags[0]}</small></div>
+      </div>`;
+    el.addEventListener("click", () => {
+      const offset = signedOffset(i, selected, APPS.length);
+      if (offset === 0) return;
+      selected = i;
+      render();
+    });
+    stage.appendChild(el);
+
+    const dot = document.createElement("div");
+    dot.className = "dot";
+    dot.addEventListener("click", () => { selected = i; render(); });
+    dotsEl.appendChild(dot);
+  });
+
+  function signedOffset(index, sel, total) {
+    let raw = index - sel;
+    if (raw > total / 2) raw -= total;
+    if (raw < -total / 2) raw += total;
+    return raw;
+  }
+
+  function render() {
+    [...stage.children].forEach((el, i) => {
+      const offset = signedOffset(i, selected, APPS.length);
+      el.dataset.offset = offset;
+      const rotY = offset * -34;
+      const tx = offset * 150;
+      const tz = -Math.abs(offset) * 70;
+      const scale = 1 - Math.abs(offset) * 0.16;
+      el.style.transform = `translateX(${tx}px) translateZ(${tz}px) rotateY(${rotY}deg) scale(${scale})`;
+      el.style.opacity = Math.abs(offset) > 2 ? "0" : "1";
+    });
+    [...dotsEl.children].forEach((d, i) => d.classList.toggle("active", i === selected));
+
+    const app = APPS[selected];
+    document.getElementById("fasciaLed").style.background = app.color;
+    document.getElementById("fasciaLed").style.boxShadow = `0 0 8px 2px ${app.color}aa`;
+    document.getElementById("detailLed").style.background = app.color;
+    document.getElementById("detailLed").style.color = app.color;
+    document.getElementById("detailTitle").textContent = app.title;
+    document.getElementById("detailBlurb").textContent = app.blurb;
+    document.getElementById("detailTags").innerHTML = app.tags.map(t => `<span class="tag">${t}</span>`).join("");
+    document.getElementById("detailLinks").innerHTML = app.links.length
+      ? app.links.map(l => `<a href="${l.href}" target="_blank" rel="noopener">${l.label}</a>`).join("")
+      : `<span class="tag">Private repo</span>`;
+  }
+
+  document.getElementById("prevBtn").addEventListener("click", () => {
+    selected = (selected - 1 + APPS.length) % APPS.length; render();
+  });
+  document.getElementById("nextBtn").addEventListener("click", () => {
+    selected = (selected + 1) % APPS.length; render();
+  });
+  window.addEventListener("keydown", (e) => {
+    if (e.key === "ArrowLeft") document.getElementById("prevBtn").click();
+    if (e.key === "ArrowRight") document.getElementById("nextBtn").click();
+  });
+
+  // drag to browse
+  let dragging = false, startX = 0, moved = 0;
+  shelf.addEventListener("pointerdown", (e) => {
+    dragging = true; startX = e.clientX; moved = 0;
+    shelf.classList.add("dragging");
+  });
+  window.addEventListener("pointermove", (e) => {
+    if (!dragging) return;
+    moved = e.clientX - startX;
+  });
+  window.addEventListener("pointerup", () => {
+    if (!dragging) return;
+    dragging = false;
+    shelf.classList.remove("dragging");
+    if (Math.abs(moved) > 60) {
+      if (moved < 0) document.getElementById("nextBtn").click();
+      else document.getElementById("prevBtn").click();
+    }
+  });
+
+  render();
+</script>
+</body>
+</html>

@@ -1,0 +1,993 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Arjun Soundarajan — About</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<style>
+/* =========================================================
+   RESET + TOKENS (aligned with index.html)
+========================================================= */
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+:root {
+  --bg: #0c0d0f;
+  --panel: #14171c;
+  --panel-2: #1a1e24;
+  --panel-3: #1e2229;
+  --text: #f2f2f0;
+  --muted: #8a9099;
+  --muted-2: #626873;
+  --amber: #ff9f00;
+  --amber-bright: #ffb13b;
+  --border: rgba(255,255,255,.08);
+  --blue: #4da3ff;
+  --green: #4ade80;
+  --purple: #a78bfa;
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  min-height: 100vh;
+  color: var(--text);
+  font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  overflow-x: hidden;
+  background-color: var(--bg);
+  display: flex;
+  flex-direction: column;
+}
+
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  opacity: .025;
+  z-index: 9999;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.45'/%3E%3C/svg%3E");
+}
+
+a { color: inherit; text-decoration: none; }
+
+/* =========================================================
+   NAV — matches index.html
+========================================================= */
+.navbar {
+  position: relative;
+  z-index: 10;
+  height: 72px;
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 32px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid rgba(255,255,255,.05);
+  background: linear-gradient(180deg, rgba(12,13,15,.55), rgba(12,13,15,.15));
+  backdrop-filter: blur(8px);
+  width: 100%;
+}
+
+.logo {
+  font-family: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-size: 15px;
+  font-weight: 700;
+  letter-spacing: 2.5px;
+  color: #f5f5f3;
+  text-decoration: none;
+}
+.logo .slash { color: var(--amber); }
+
+.nav-links {
+  display: flex;
+  gap: 40px;
+  list-style: none;
+}
+.nav-links a {
+  position: relative;
+  font-family: "JetBrains Mono", ui-monospace, monospace;
+  font-size: 11px;
+  letter-spacing: 1.5px;
+  text-decoration: none;
+  color: #aeb2ba;
+  padding: 26px 2px 18px;
+  transition: color .2s ease;
+}
+.nav-links a:hover { color: var(--amber-bright); }
+.nav-links a.active { color: var(--amber); }
+.nav-links a.active::before {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 14px;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  transform: translateX(-50%);
+  background: var(--amber);
+  box-shadow: 0 0 8px rgba(255,159,0,.85);
+}
+.nav-links a.active::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  bottom: 10px;
+  width: 100%;
+  min-width: 28px;
+  height: 2px;
+  transform: translateX(-50%);
+  background: var(--amber);
+  box-shadow: 0 0 10px rgba(255,159,0,.7);
+}
+
+/* =========================================================
+   LAYOUT — compact single-viewport
+========================================================= */
+main {
+  position: relative;
+  z-index: 1;
+  max-width: 1180px;
+  margin: 0 auto;
+  padding: 18px 36px 14px;
+  width: 100%;
+  flex: 1;
+}
+
+.section-tag {
+  font-family: "JetBrains Mono", ui-monospace, monospace;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  color: var(--amber);
+  margin-bottom: 8px;
+}
+
+/* =========================================================
+   TOP ROW — bio | portrait | what I do
+========================================================= */
+.top-row {
+  display: grid;
+  grid-template-columns: 1.15fr 0.82fr 1.1fr;
+  gap: 20px;
+  align-items: stretch;
+  margin-bottom: 20px;
+}
+
+.bio-col { display: flex; flex-direction: column; justify-content: center; padding-right: 4px; }
+
+.bio-col h1 {
+  font-size: clamp(24px, 2.6vw, 34px);
+  line-height: 1.12;
+  letter-spacing: -0.8px;
+  font-weight: 700;
+  color: #f4f4f2;
+  margin-bottom: 6px;
+}
+.bio-col h1 .accent { color: var(--amber); }
+
+.bio-col .role {
+  font-size: 15px;
+  font-weight: 550;
+  color: #c8ccd4;
+  margin-bottom: 12px;
+  letter-spacing: .2px;
+}
+
+.bio-col .bio {
+  color: #9aa0aa;
+  font-size: 13px;
+  line-height: 1.55;
+  max-width: 400px;
+  margin-bottom: 14px;
+}
+
+.location {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: #c8ccd4;
+  font-size: 13px;
+  font-weight: 500;
+  margin-bottom: 16px;
+}
+.location .dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--amber);
+  box-shadow: 0 0 8px rgba(255,159,0,.7);
+}
+
+.btn-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  font-family: Inter, sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  padding: 9px 16px;
+  border-radius: 9px;
+  border: 1.5px solid transparent;
+  cursor: pointer;
+  transition: transform .15s ease, background .15s ease, border-color .15s ease, color .15s ease;
+}
+.btn:hover { transform: translateY(-1px); }
+.btn svg { width: 14px; height: 14px; }
+
+.btn-primary {
+  background: var(--amber);
+  color: #1a1200;
+  border-color: var(--amber);
+}
+.btn-primary:hover { background: var(--amber-bright); }
+
+.btn-outline {
+  background: transparent;
+  color: #e8eaee;
+  border-color: rgba(255,255,255,.2);
+  padding: 9px 14px;
+}
+.btn-outline:hover { border-color: rgba(255,255,255,.4); color: #fff; }
+
+.btn-text {
+  background: transparent;
+  border-color: transparent;
+  color: #e8eaee;
+  padding: 9px 6px;
+  font-weight: 550;
+}
+.btn-text:hover { color: var(--amber-bright); }
+
+/* Portrait */
+.portrait-col {
+  display: flex;
+  justify-content: center;
+  align-items: stretch;
+  position: relative;
+  z-index: 2;
+  overflow: visible;
+}
+
+.portrait-frame {
+  position: relative;
+  width: 100%;
+  max-width: 248px;
+  aspect-ratio: 3 / 4;
+  max-height: 310px;
+  border-radius: 14px;
+  overflow: visible;
+  background: linear-gradient(160deg, #1c2128 0%, #12151a 45%, #0e1014 100%);
+  border: 1px solid var(--border);
+  box-shadow: 0 14px 36px rgba(0,0,0,.4);
+}
+
+.portrait-frame img {
+  position: absolute;
+  left: 50%;
+  top: 0;
+  height: 100%;
+  width: auto;
+  max-width: none;
+  transform: translateX(-50%);
+  display: none;
+}
+.portrait-frame.has-photo img { display: block; }
+.portrait-frame.has-photo .portrait-placeholder { display: none; }
+
+.portrait-placeholder {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  background:
+    radial-gradient(ellipse at 30% 20%, rgba(255,159,0,.12), transparent 55%),
+    radial-gradient(ellipse at 70% 80%, rgba(77,163,255,.08), transparent 50%),
+    linear-gradient(160deg, #1c2128 0%, #12151a 45%, #0e1014 100%);
+}
+.portrait-placeholder .initials {
+  font-family: "JetBrains Mono", ui-monospace, monospace;
+  font-size: 42px;
+  font-weight: 700;
+  letter-spacing: 3px;
+  color: rgba(242,242,240,.88);
+  text-shadow: 0 4px 24px rgba(0,0,0,.5);
+}
+.portrait-placeholder .hint {
+  font-size: 10px;
+  color: var(--muted-2);
+  letter-spacing: .4px;
+}
+
+.status-pill {
+  position: absolute;
+  left: 8px;
+  bottom: 8px;
+  right: 8px;
+  z-index: 2;
+  display: inline-flex;
+  align-items: flex-start;
+  gap: 6px;
+  padding: 6px 9px;
+  border-radius: 10px;
+  background: rgba(12,13,15,.82);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255,255,255,.1);
+  font-size: 10px;
+  font-weight: 500;
+  color: #e8eaee;
+  white-space: normal;
+  line-height: 1.3;
+  width: auto;
+  max-width: calc(100% - 16px);
+}
+.status-pill .live {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--amber);
+  box-shadow: 0 0 8px rgba(255,159,0,.9);
+  animation: pulse 2s ease-in-out infinite;
+  flex-shrink: 0;
+  margin-top: 3px;
+}
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: .45; }
+}
+
+/* What I Do card */
+.services-card {
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 16px 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.services-card .card-title {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  font-weight: 650;
+  margin-bottom: 8px;
+  color: #f0f0ee;
+}
+.services-card .card-title .dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--amber);
+  box-shadow: 0 0 8px rgba(255,159,0,.7);
+}
+
+.service-item {
+  display: flex;
+  gap: 10px;
+  align-items: flex-start;
+  padding: 8px 6px;
+  border-radius: 10px;
+  transition: background .15s ease;
+}
+.service-item:hover { background: rgba(255,255,255,.03); }
+
+.service-icon {
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+  border: 1.5px solid;
+  background: transparent;
+}
+.service-icon svg {
+  width: 16px;
+  height: 16px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.7;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.service-icon.blue { color: var(--blue); border-color: rgba(77,163,255,.45); background: rgba(77,163,255,.06); }
+.service-icon.green { color: var(--green); border-color: rgba(74,222,128,.4); background: rgba(74,222,128,.06); }
+.service-icon.amber { color: var(--amber); border-color: rgba(255,159,0,.45); background: rgba(255,159,0,.06); }
+.service-icon.purple { color: var(--purple); border-color: rgba(167,139,250,.45); background: rgba(167,139,250,.06); }
+
+.service-text h3 {
+  font-size: 12.5px;
+  font-weight: 650;
+  color: #f0f0ee;
+  margin-bottom: 2px;
+}
+.service-text p {
+  font-size: 11.5px;
+  line-height: 1.4;
+  color: var(--muted);
+}
+
+/* =========================================================
+   MIDDLE ROW — journey | skills
+========================================================= */
+.mid-row {
+  display: grid;
+  grid-template-columns: 1fr 1.2fr;
+  gap: 24px;
+  margin-bottom: 16px;
+}
+
+.mid-row h2 {
+  font-size: clamp(20px, 2.2vw, 26px);
+  font-weight: 700;
+  letter-spacing: -0.6px;
+  color: #f4f4f2;
+  margin-bottom: 14px;
+}
+.mid-row h2 .accent { color: var(--amber); }
+
+/* Timeline */
+.timeline {
+  position: relative;
+  padding-left: 22px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.timeline::before {
+  content: "";
+  position: absolute;
+  left: 4px;
+  top: 6px;
+  bottom: 6px;
+  width: 2px;
+  background: rgba(255,255,255,.1);
+  border-radius: 2px;
+}
+
+.tl-item { position: relative; }
+.tl-item .node {
+  position: absolute;
+  left: -22px;
+  top: 4px;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: #3a3f48;
+  border: 2px solid #5a606a;
+  box-sizing: border-box;
+}
+.tl-item.active .node {
+  background: var(--amber);
+  border-color: var(--amber);
+  box-shadow: 0 0 10px rgba(255,159,0,.7);
+}
+.tl-item .years {
+  font-family: "JetBrains Mono", ui-monospace, monospace;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: .4px;
+  color: var(--muted);
+  margin-bottom: 3px;
+}
+.tl-item.active .years { color: var(--amber); }
+.tl-item h3 {
+  font-size: 13.5px;
+  font-weight: 650;
+  color: #f0f0ee;
+  margin-bottom: 3px;
+  line-height: 1.3;
+}
+.tl-item p {
+  font-size: 12px;
+  line-height: 1.45;
+  color: var(--muted);
+  max-width: 380px;
+}
+.tl-item .tl-link {
+  display: inline-block;
+  margin-top: 6px;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--amber);
+  transition: color .15s ease;
+}
+.tl-item .tl-link:hover { color: var(--amber-bright); }
+
+/* Skills grid — 6 cols × 4 rows for compact height */
+.skills-grid {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 8px;
+}
+
+.skill-tile {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  padding: 10px 4px 8px;
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  transition: border-color .15s ease, transform .15s ease, background .15s ease;
+  min-height: 64px;
+}
+.skill-tile:hover {
+  border-color: rgba(255,159,0,.28);
+  transform: translateY(-1px);
+  background: var(--panel-2);
+}
+.skill-tile .mark {
+  width: 26px;
+  height: 26px;
+  display: grid;
+  place-items: center;
+}
+.skill-tile .mark svg { width: 26px; height: 26px; }
+.skill-tile .name {
+  font-size: 10px;
+  font-weight: 550;
+  color: #d4d7de;
+  text-align: center;
+  letter-spacing: .1px;
+  line-height: 1.2;
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  padding: 0 2px;
+}
+
+/* =========================================================
+   STATS BAR
+========================================================= */
+.stats-bar {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 6px;
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 12px 10px;
+}
+
+.stat {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 5px;
+  padding: 4px 8px;
+}
+.stat .stat-icon {
+  width: 30px;
+  height: 30px;
+  border-radius: 8px;
+  border: 1px solid var(--border);
+  display: grid;
+  place-items: center;
+  color: var(--muted);
+  margin-bottom: 2px;
+}
+.stat .stat-icon svg {
+  width: 15px;
+  height: 15px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.6;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.stat .num {
+  font-size: 22px;
+  font-weight: 750;
+  color: var(--amber);
+  letter-spacing: -0.4px;
+  line-height: 1;
+}
+.stat .label {
+  font-size: 11.5px;
+  color: #aeb2ba;
+  line-height: 1.35;
+  max-width: 180px;
+}
+
+footer {
+  text-align: center;
+  padding: 8px 20px 12px;
+  color: var(--muted-2);
+  font-family: "JetBrains Mono", ui-monospace, monospace;
+  font-size: 10px;
+  letter-spacing: 1.5px;
+}
+
+/* =========================================================
+   RESPONSIVE
+========================================================= */
+@media (max-width: 1100px) {
+  .skills-grid { grid-template-columns: repeat(4, 1fr); }
+}
+
+@media (max-width: 1024px) {
+  .top-row {
+    grid-template-columns: 1fr 1fr;
+    gap: 18px;
+  }
+  .portrait-col { grid-column: 1 / -1; order: -1; }
+  .portrait-frame { max-width: 200px; max-height: 260px; margin: 0 auto; }
+  .mid-row { grid-template-columns: 1fr; gap: 24px; }
+}
+
+@media (max-width: 720px) {
+  .navbar { padding: 0 16px; height: 52px; }
+  .nav-links { gap: 14px; }
+  .nav-links a { font-size: 10px; padding: 16px 2px 12px; }
+  main { padding: 18px 16px 20px; }
+  .top-row { grid-template-columns: 1fr; }
+  .skills-grid { grid-template-columns: repeat(3, 1fr); }
+  .stats-bar { grid-template-columns: repeat(2, 1fr); gap: 10px; }
+}
+
+@media (max-width: 420px) {
+  .btn-row { flex-direction: column; align-items: stretch; }
+  .btn { justify-content: center; }
+  .skills-grid { grid-template-columns: repeat(2, 1fr); }
+}
+</style>
+</head>
+<body>
+
+<nav class="navbar">
+  <a class="logo" href="index.html" id="brandLogo">Arjun <span class="slash">//</span></a>
+  <ul class="nav-links">
+    <li><a href="index.html#work">WORK</a></li>
+    <li><a href="about.html" class="active">ABOUT</a></li>
+    <li><a href="projects.html">PROJECTS</a></li>
+    <li><a href="contact.html">CONTACT</a></li>
+  </ul>
+</nav>
+
+<main>
+  <!-- ========== TOP ROW ========== -->
+  <section class="top-row" aria-label="About intro">
+    <div class="bio-col">
+      <div class="section-tag" id="aboutTag">01. ABOUT</div>
+      <h1 id="aboutHeadline">Hi, I'm <span class="accent">Arjun Soundarajan</span></h1>
+      <div class="role" id="aboutRole">Software Developer</div>
+      <p class="bio" id="aboutBio"></p>
+      <div class="location"><span class="dot" aria-hidden="true"></span><span id="aboutLocation">Bengaluru, India</span></div>
+      <div class="btn-row">
+        <a class="btn btn-primary" id="resumeBtn" href="docs/Arjun%27s_Resume.pdf" download="Arjun_Soundarajan_Resume.pdf">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12"/><path d="M7 10l5 5 5-5"/><path d="M5 21h14"/></svg>
+          Download Resume
+        </a>
+        <a class="btn btn-text" id="contactBtn" href="contact.html">Get in touch →</a>
+      </div>
+    </div>
+
+    <div class="portrait-col">
+      <div class="portrait-frame" id="portraitFrame">
+        <img id="portraitImg" src="" alt="Portrait of Arjun Soundarajan" />
+        <div class="portrait-placeholder" id="portraitPlaceholder">
+          <div class="initials" id="portraitInitials">AS</div>
+          <div class="hint">Add assets/about_photo.png</div>
+        </div>
+        <div class="status-pill" id="statusPill"><span class="live" aria-hidden="true"></span><span id="statusText">Building software, IoT and automation.</span></div>
+      </div>
+    </div>
+
+    <aside class="services-card" aria-label="What I do">
+      <div class="card-title"><span class="dot" aria-hidden="true"></span><span id="servicesTitle">What I Do</span></div>
+      <div id="servicesList"></div>
+    </aside>
+  </section>
+
+  <!-- ========== MIDDLE ROW ========== -->
+  <section class="mid-row" aria-label="Journey and skills">
+    <div class="journey-col">
+      <div class="section-tag" id="journeyTag">02. JOURNEY</div>
+      <h2 id="journeyHeadline">My <span class="accent">Journey</span></h2>
+      <div class="timeline" id="timeline"></div>
+    </div>
+
+    <div class="skills-col">
+      <div class="section-tag" id="skillsTag">03. SKILLS</div>
+      <h2 id="skillsHeadline">Technologies I <span class="accent">Work With</span></h2>
+      <div class="skills-grid" id="skillsGrid"></div>
+    </div>
+  </section>
+
+  <!-- ========== STATS ========== -->
+  <section class="stats-bar" id="statsBar" aria-label="Highlights"></section>
+</main>
+
+<footer id="footerText">Arjun // ABOUT</footer>
+
+<script>
+/* =========================================================
+   ABOUT / SITE CONFIG — edit this block only
+========================================================= */
+const ABOUT = {
+  brand: "Arjun",
+  pageTitle: "Arjun Soundarajan — About",
+
+  /* Portrait — drop a photo at this path; placeholder shows if missing */
+  photo: "assets/about_photo.png",
+  initials: "AS",
+  status: "Building software, IoT and automation.",
+
+  tag: "01. ABOUT",
+  headlineBefore: "Hi, I'm ",
+  headlineAccent: "Arjun Soundarajan",
+  role: "Software Developer",
+  bio:
+    "Experienced Software Developer with 5+ years of expertise in building secure, scalable, and high-performance enterprise and system-level applications. I work on Windows applications, web applications, cloud services and IoT/embedded projects. Passionate about building practical tools, home automation and solving real-world problems through software and hardware.",
+  location: "Bengaluru, India",
+
+  resumeUrl: "docs/Arjun%27s_Resume.pdf",
+  contactHref: "contact.html",
+
+  servicesTitle: "What I Do",
+  services: [
+    {
+      icon: "monitor",
+      color: "blue",
+      title: "Windows & Web Applications",
+      desc: "Build desktop and web apps with C#, .NET, React and TypeScript.",
+    },
+    {
+      icon: "gear",
+      color: "green",
+      title: "Backend & Cloud Systems",
+      desc: "Design APIs, microservices and cloud solutions with Node.js, .NET and AWS.",
+    },
+    {
+      icon: "cube",
+      color: "amber",
+      title: "IoT & Smart Home",
+      desc: "Build IoT and embedded projects with Raspberry Pi, ESP32, Home Assistant and MQTT.",
+    },
+    {
+      icon: "shield",
+      color: "purple",
+      title: "Security & Networking",
+      desc: "VPN solutions, secure architectures, authentication and encrypted communication (WireGuard, LDAP).",
+    },
+  ],
+
+  journeyTag: "02. JOURNEY",
+  journeyHeadlineBefore: "My ",
+  journeyHeadlineAccent: "Journey",
+  journey: [
+    {
+      years: "Oct 2023 – Present",
+      title: "Senior Software Developer @ Simplify3x Software Pvt Ltd",
+      desc: "Work on government, healthcare and enterprise systems using .NET, React, TypeScript and cloud technologies.",
+      active: true,
+      link: { text: "View projects →", href: "projects.html" },
+    },
+    {
+      years: "2019 – 2023",
+      title: "Software Developer",
+      desc: "Multiple projects in healthcare, payment processing and secure platforms using .NET, Node.js, React and PostgreSQL.",
+      active: false,
+    },
+    {
+      years: "2015 – 2019",
+      title: "Early Career",
+      desc: "Learning, building and exploring system design and full-stack development.",
+      active: false,
+    },
+  ],
+
+  skillsTag: "03. SKILLS",
+  skillsHeadlineBefore: "Technologies I ",
+  skillsHeadlineAccent: "Work With",
+  skills: [
+    "C#", ".NET", "C++", "TypeScript", "JavaScript", "React",
+    "Node.js", "Python", "ASP.NET MVC", "Web API", "HTML5", "CSS3",
+    "SQL Server", "PostgreSQL", "AWS", "Docker", "Git", "CI/CD",
+    "WireGuard", "Home Assistant", "ESP32", "Raspberry Pi", "MQTT", "Linux",
+  ],
+
+  stats: [
+    { icon: "laptop", num: "5+", label: "Years Experience" },
+    { icon: "cube", num: "8+", label: "Projects Completed" },
+    { icon: "users", num: "4+", label: "Domains (Enterprise, Web, IoT, Cloud)" },
+    { icon: "pin", num: "1", label: "Base Location: Bengaluru, India" },
+  ],
+};
+
+/* =========================================================
+   SVG ICONS
+========================================================= */
+const ICONS = {
+  monitor: '<svg viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>',
+  gear: '<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>',
+  cube: '<svg viewBox="0 0 24 24"><path d="M12 2l9 5v10l-9 5-9-5V7l9-5z"/><path d="M12 12l9-5M12 12v10M12 12L3 7"/></svg>',
+  cloud: '<svg viewBox="0 0 24 24"><path d="M18 18H7a4 4 0 0 1-.5-8 6 6 0 0 1 11.5-1.5A3.5 3.5 0 0 1 18 18z"/></svg>',
+  shield: '<svg viewBox="0 0 24 24"><path d="M12 3l8 3v6c0 5-3.5 8.5-8 10-4.5-1.5-8-5-8-10V6l8-3z"/><path d="M9 12l2 2 4-4"/></svg>',
+  laptop: '<svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="12" rx="2"/><path d="M2 20h20"/></svg>',
+  users: '<svg viewBox="0 0 24 24"><circle cx="9" cy="8" r="3"/><path d="M3 19c0-3 2.5-5 6-5s6 2 6 5"/><circle cx="17" cy="9" r="2.5"/><path d="M21 19c0-2.2-1.5-3.8-3.5-4.5"/></svg>',
+  pin: '<svg viewBox="0 0 24 24"><path d="M12 21s7-5.5 7-11a7 7 0 1 0-14 0c0 5.5 7 11 7 11z"/><circle cx="12" cy="10" r="2.5"/></svg>',
+  download: '<svg viewBox="0 0 24 24"><path d="M12 3v12"/><path d="M7 10l5 5 5-5"/><path d="M5 21h14"/></svg>',
+};
+
+/* Simple colored skill marks (SVG initials — no brand logo assets) */
+const SKILL_MARKS = {
+  "C#": { bg: "#68217a", label: "C#" },
+  ".NET": { bg: "#512bd4", label: ".N" },
+  "C++": { bg: "#00599c", label: "C+" },
+  "TypeScript": { bg: "#3178c6", label: "TS" },
+  "JavaScript": { bg: "#f7df1e", label: "JS" },
+  "React": { bg: "#61dafb", label: "Re" },
+  "Node.js": { bg: "#68a063", label: "N" },
+  "Python": { bg: "#3776ab", label: "Py" },
+  "ASP.NET MVC": { bg: "#512bd4", label: "MV" },
+  "Web API": { bg: "#e34c26", label: "API" },
+  "HTML5": { bg: "#e34f26", label: "H5" },
+  "CSS3": { bg: "#1572b6", label: "C3" },
+  "SQL Server": { bg: "#cc2927", label: "SQL" },
+  "PostgreSQL": { bg: "#336791", label: "PG" },
+  "AWS": { bg: "#ff9900", label: "AWS" },
+  "Docker": { bg: "#2496ed", label: "Dk" },
+  "Git": { bg: "#f05032", label: "Git" },
+  "CI/CD": { bg: "#ff9f00", label: "CI" },
+  "WireGuard": { bg: "#88171a", label: "WG" },
+  "Home Assistant": { bg: "#41bdf5", label: "HA" },
+  "ESP32": { bg: "#e7352b", label: "32" },
+  "Raspberry Pi": { bg: "#c51a4a", label: "Pi" },
+  "MQTT": { bg: "#660066", label: "MQ" },
+  "Linux": { bg: "#fcc624", label: "Lx" },
+};
+
+function skillMarkSvg(name) {
+  const m = SKILL_MARKS[name] || { bg: "#8a9099", label: name.slice(0, 2) };
+  const short = m.label.length > 3 ? m.label.slice(0, 3) : m.label;
+  const fs = short.length >= 3 ? 8 : 10;
+  return (
+    '<svg viewBox="0 0 26 26" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">' +
+    '<rect x="1.5" y="1.5" width="23" height="23" rx="6" fill="' + m.bg + '" fill-opacity=".18" stroke="' + m.bg + '" stroke-opacity=".55" stroke-width="1.2"/>' +
+    '<text x="13" y="16.5" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="' + fs + '" font-weight="700" fill="' + m.bg + '">' +
+    short +
+    "</text></svg>"
+  );
+}
+
+function escapeHtml(s) {
+  return String(s)
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;");
+}
+
+/* =========================================================
+   RENDER
+========================================================= */
+document.title = ABOUT.pageTitle;
+
+document.getElementById("aboutTag").textContent = ABOUT.tag;
+document.getElementById("aboutHeadline").innerHTML =
+  ABOUT.headlineBefore + '<span class="accent">' + escapeHtml(ABOUT.headlineAccent) + "</span>";
+document.getElementById("aboutRole").textContent = ABOUT.role || "";
+document.getElementById("aboutBio").textContent = ABOUT.bio;
+document.getElementById("aboutLocation").textContent = ABOUT.location;
+document.getElementById("statusText").textContent = ABOUT.status;
+document.getElementById("portraitInitials").textContent = ABOUT.initials;
+document.getElementById("servicesTitle").textContent = ABOUT.servicesTitle;
+document.getElementById("journeyTag").textContent = ABOUT.journeyTag;
+document.getElementById("journeyHeadline").innerHTML =
+  ABOUT.journeyHeadlineBefore + '<span class="accent">' + escapeHtml(ABOUT.journeyHeadlineAccent) + "</span>";
+document.getElementById("skillsTag").textContent = ABOUT.skillsTag;
+document.getElementById("skillsHeadline").innerHTML =
+  ABOUT.skillsHeadlineBefore + '<span class="accent">' + escapeHtml(ABOUT.skillsHeadlineAccent) + "</span>";
+document.getElementById("footerText").textContent = ABOUT.brand + " // ABOUT";
+
+const resumeBtn = document.getElementById("resumeBtn");
+resumeBtn.href = ABOUT.resumeUrl || "#";
+if (!ABOUT.resumeUrl || ABOUT.resumeUrl === "#") {
+  resumeBtn.removeAttribute("download");
+  resumeBtn.addEventListener("click", (e) => {
+    e.preventDefault();
+  });
+  resumeBtn.title = "Add resumeUrl in ABOUT config";
+} else {
+  resumeBtn.setAttribute("download", "Arjun_Soundarajan_Resume.pdf");
+  resumeBtn.removeAttribute("title");
+}
+document.getElementById("contactBtn").href = ABOUT.contactHref || "contact.html";
+
+/* Portrait: try photo; fall back to placeholder */
+(function initPortrait() {
+  const frame = document.getElementById("portraitFrame");
+  const img = document.getElementById("portraitImg");
+  const path = ABOUT.photo;
+  if (!path) return;
+  img.alt = "Portrait";
+  img.onerror = function () {
+    frame.classList.remove("has-photo");
+    img.removeAttribute("src");
+  };
+  img.onload = function () {
+    frame.classList.add("has-photo");
+  };
+  img.src = path;
+})();
+
+/* Services */
+const servicesList = document.getElementById("servicesList");
+ABOUT.services.forEach((s) => {
+  const el = document.createElement("div");
+  el.className = "service-item";
+  el.innerHTML =
+    '<div class="service-icon ' + s.color + '" aria-hidden="true">' +
+    (ICONS[s.icon] || ICONS.cube) +
+    "</div>" +
+    '<div class="service-text"><h3>' + escapeHtml(s.title) + "</h3><p>" + escapeHtml(s.desc) + "</p></div>";
+  servicesList.appendChild(el);
+});
+
+/* Journey */
+const timeline = document.getElementById("timeline");
+ABOUT.journey.forEach((j) => {
+  const el = document.createElement("div");
+  el.className = "tl-item" + (j.active ? " active" : "");
+  let html =
+    '<span class="node" aria-hidden="true"></span>' +
+    '<div class="years">' + escapeHtml(j.years) + "</div>" +
+    "<h3>" + escapeHtml(j.title) + "</h3>" +
+    "<p>" + escapeHtml(j.desc) + "</p>";
+  if (j.link && j.link.href && j.link.text) {
+    html +=
+      '<a class="tl-link" href="' + escapeHtml(j.link.href) + '">' +
+      escapeHtml(j.link.text) +
+      "</a>";
+  }
+  el.innerHTML = html;
+  timeline.appendChild(el);
+});
+
+/* Skills */
+const skillsGrid = document.getElementById("skillsGrid");
+ABOUT.skills.forEach((name) => {
+  const el = document.createElement("div");
+  el.className = "skill-tile";
+  el.innerHTML =
+    '<div class="mark">' + skillMarkSvg(name) + "</div>" +
+    '<div class="name">' + escapeHtml(name) + "</div>";
+  skillsGrid.appendChild(el);
+});
+
+/* Stats */
+const statsBar = document.getElementById("statsBar");
+ABOUT.stats.forEach((s) => {
+  const el = document.createElement("div");
+  el.className = "stat";
+  el.innerHTML =
+    '<div class="stat-icon" aria-hidden="true">' + (ICONS[s.icon] || ICONS.cube) + "</div>" +
+    '<div class="num">' + escapeHtml(s.num) + "</div>" +
+    '<div class="label">' + escapeHtml(s.label) + "</div>";
+  statsBar.appendChild(el);
+});
+</script>
+</body>
+</html>
