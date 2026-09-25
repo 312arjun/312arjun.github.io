@@ -1,4 +1,4 @@
-export const SKILL_MARKS = {
+﻿export const SKILL_MARKS = {
   "C#": { bg: "#68217a", label: "C#" },
   ".NET": { bg: "#512bd4", label: ".N" },
   "C++": { bg: "#00599c", label: "C+" },
@@ -23,4 +23,18 @@ export const SKILL_MARKS = {
   "Raspberry Pi": { bg: "#c51a4a", label: "Pi" },
   "MQTT": { bg: "#660066", label: "MQ" },
   "Linux": { bg: "#fcc624", label: "Lx" },
+};
+
+/** Colored bordered abbr box SVG — matches legacy / screenshot cards */
+export function skillMarkSvg(name) {
+  const m = SKILL_MARKS[name] || { bg: "#8a9099", label: String(name).slice(0, 2) };
+  const short = m.label.length > 3 ? m.label.slice(0, 3) : m.label;
+  const fs = short.length >= 3 ? 8 : 10;
+  return (
+    '<svg viewBox="0 0 26 26" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">' +
+    '<rect x="1.5" y="1.5" width="23" height="23" rx="6" fill="' + m.bg +
+    '" fill-opacity=".18" stroke="' + m.bg + '" stroke-opacity=".9" stroke-width="1.5"/>' +
+    '<text x="13" y="16.5" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="' +
+    fs + '" font-weight="700" fill="' + m.bg + '">' + short + "</text></svg>"
+  );
 }

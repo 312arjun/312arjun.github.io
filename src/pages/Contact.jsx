@@ -1,4 +1,4 @@
-﻿import { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { CONTACT } from "../data/contact.js";
 import { asset } from "../data/paths.js";
 import "../styles/contact.css";
@@ -8,9 +8,13 @@ export default function Contact() {
   const [invalid, setInvalid] = useState({});
 
   useEffect(() => {
-    document.title = CONTACT.pageTitle || "Arjun Soundarajan — Contact";
+    document.title = CONTACT.pageTitle || "Arjun Soundarajan � Contact";
+    document.body.classList.add("page-contact");
     document.body.style.setProperty("--page-bg", `url("${asset("assets/backgrounds/contact_bg.png")}")`);
-    return () => document.body.style.removeProperty("--page-bg");
+    return () => {
+      document.body.classList.remove("page-contact");
+      document.body.style.removeProperty("--page-bg");
+    };
   }, []);
 
   function onSubmit(e) {
@@ -128,10 +132,10 @@ export default function Contact() {
             <div className="or-divider">OR</div>
             <div className="alt-actions">
               <a className="alt-btn" href={CONTACT.socials?.github || "https://github.com/312arjun"} target="_blank" rel="noopener noreferrer">
-                <span className="alt-left">View GitHub</span><span className="arrow">→</span>
+                <span className="alt-left">View GitHub</span><span className="alt-arrow">→</span>
               </a>
               <a className="alt-btn" href={`mailto:${CONTACT.email}`}>
-                <span className="alt-left">Email Me</span><span className="arrow">→</span>
+                <span className="alt-left">Email Me</span><span className="alt-arrow">→</span>
               </a>
             </div>
           </aside>

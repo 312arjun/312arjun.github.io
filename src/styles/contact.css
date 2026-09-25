@@ -28,17 +28,20 @@ body {
   overflow-x: hidden;
   background-color: var(--bg);
   /* asset: assets/backgrounds/contact_bg.png — set via --page-bg in React */
+  display: flex;
+  flex-direction: column;
+}
+
+body.page-contact {
   background-image: var(--page-bg);
   background-size: cover;
   background-position: center bottom;
   background-repeat: no-repeat;
   background-attachment: fixed;
-  display: flex;
-  flex-direction: column;
 }
 
 /* Full-viewport dark gradient overlay over desk art */
-body::after {
+body.page-contact::after {
   content: "";
   position: fixed;
   inset: 0;
@@ -487,7 +490,7 @@ main {
   stroke-linecap: round;
   stroke-linejoin: round;
 }
-.alt-btn .arrow { color: var(--muted); font-size: 14px; }
+.alt-btn .alt-arrow { color: var(--muted); font-size: 14px; }
 
 .form-status {
   margin-top: 10px;

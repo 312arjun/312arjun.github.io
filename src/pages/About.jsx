@@ -1,8 +1,8 @@
-﻿import { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { ABOUT } from "../data/about.js";
 import { ICONS } from "../data/aboutIcons.js";
-import { SKILL_MARKS } from "../data/skillMarks.js";
+import { skillMarkSvg } from "../data/skillMarks.js";
 import { asset } from "../data/paths.js";
 import { Icon } from "../components/Icon.jsx";
 import "../styles/about.css";
@@ -38,7 +38,7 @@ export default function About() {
                 Download Resume
               </a>
               <Link className="btn btn-text" to="/contact">
-                Get in touch →
+                Get in touch ?
               </Link>
             </div>
           </div>
@@ -100,7 +100,7 @@ export default function About() {
                   <p>{j.desc}</p>
                   {j.link && (
                     <Link className="tl-link" to="/projects">
-                      {j.link.text || "View projects →"}
+                      {j.link.text || "View projects ?"}
                     </Link>
                   )}
                 </div>
@@ -115,17 +115,14 @@ export default function About() {
               <span className="accent">{ABOUT.skillsHeadlineAccent}</span>
             </h2>
             <div className="skills-grid">
-              {(ABOUT.skills || []).map((name) => {
-                const mark = SKILL_MARKS[name] || { bg: "#8a9099", label: String(name).slice(0, 2) };
-                return (
-                  <div className="skill-tile" key={name}>
-                    <div className="mark" style={{ background: mark.bg }}>
-                      {mark.label}
-                    </div>
-                    <div className="name">{name}</div>
+              {(ABOUT.skills || []).map((name) => (
+                <div className="skill-tile" key={name}>
+                  <div className="mark">
+                    <Icon svg={skillMarkSvg(name)} />
                   </div>
-                );
-              })}
+                  <div className="name">{name}</div>
+                </div>
+              ))}
             </div>
           </div>
         </section>

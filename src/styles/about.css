@@ -540,11 +540,12 @@ main {
   display: grid;
   place-items: center;
 }
-.skill-tile .mark svg { width: 26px; height: 26px; }
+.skill-tile .mark span { display: grid; place-items: center; width: 26px; height: 26px; }
+.skill-tile .mark svg { width: 26px; height: 26px; display: block; }
 .skill-tile .name {
   font-size: 10px;
-  font-weight: 550;
-  color: #d4d7de;
+  font-weight: 700;
+  color: #ffffff;
   text-align: center;
   letter-spacing: .1px;
   line-height: 1.2;

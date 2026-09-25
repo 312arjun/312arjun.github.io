@@ -18,7 +18,7 @@ export const CONTACT = {
 
   socials: {
     github: "https://github.com/312arjun",
-    linkedin: "#",
+    linkedin: "https://www.linkedin.com/in/arjun-soundarajan-691b97121/",
     twitter: "#",
   },
 
