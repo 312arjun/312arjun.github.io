@@ -3,7 +3,7 @@ import { createCdShelf } from "../lib/cdShelf.js";
 import { SITE } from "../data/site.js";
 import { PROJECTS } from "../data/shelfProjects.js";
 import { ICONS } from "../data/shelfIcons.js";
-import { asset } from "../data/paths.js";
+import { asset, absAsset } from "../data/paths.js";
 import { Icon } from "../components/Icon.jsx";
 import "../styles/work.css";
 
@@ -22,7 +22,7 @@ export default function Work() {
   useEffect(() => {
     document.title = SITE.pageTitle || "Arjun Soundarajan";
     document.body.classList.add("page-work");
-    document.body.style.setProperty("--page-bg", `url("${asset("assets/backgrounds/background.png")}")`);
+    document.body.style.setProperty("--page-bg", `url("${absAsset("assets/backgrounds/background.png")}")`);
     return () => {
       document.body.classList.remove("page-work");
       document.body.style.removeProperty("--page-bg");

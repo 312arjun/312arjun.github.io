@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { CONTACT } from "../data/contact.js";
-import { asset } from "../data/paths.js";
+import { absAsset } from "../data/paths.js";
 import "../styles/contact.css";
 
 export default function Contact() {
@@ -10,7 +10,7 @@ export default function Contact() {
   useEffect(() => {
     document.title = CONTACT.pageTitle || "Arjun Soundarajan � Contact";
     document.body.classList.add("page-contact");
-    document.body.style.setProperty("--page-bg", `url("${asset("assets/backgrounds/contact_bg.png")}")`);
+    document.body.style.setProperty("--page-bg", `url("${absAsset("assets/backgrounds/contact_bg.png")}")`);
     return () => {
       document.body.classList.remove("page-contact");
       document.body.style.removeProperty("--page-bg");
