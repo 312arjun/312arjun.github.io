@@ -449,7 +449,8 @@ main {
   margin: 16px 0 0 20px;
   align-items: center;
 }
-.btn {
+.btn,
+.project-panel .btn {
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -462,17 +463,17 @@ main {
   cursor: pointer;
   transition: .22s ease;
 }
-.btn-primary {
+.project-panel .btn-primary {
   color: var(--amber-bright);
   border: 1px solid var(--amber);
   background: linear-gradient(180deg, rgba(255,159,0,.1), rgba(255,159,0,.03));
 }
-.btn-primary:hover {
+.project-panel .btn-primary:hover {
   background: var(--amber);
   color: #17120a;
   box-shadow: 0 0 20px rgba(255,159,0,.28);
 }
-.btn-github {
+.project-panel .btn-github {
   width: 38px;
   padding: 0;
   color: #d5d8dc;
@@ -480,11 +481,11 @@ main {
   background: rgba(255,255,255,.03);
   border-radius: 50%;
 }
-.btn-github:hover {
+.project-panel .btn-github:hover {
   border-color: var(--amber);
   color: var(--amber);
 }
-.btn-github svg {
+.project-panel .btn-github svg {
   width: 20px;
   height: 20px;
   fill: currentColor;
