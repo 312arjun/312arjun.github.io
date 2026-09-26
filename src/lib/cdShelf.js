@@ -169,7 +169,7 @@ export function createCdShelf({ stageEl, sceneEl, projects, startIndex = 0, onCh
 
   function onPointerDown(e) {
     if (e.button != null && e.button !== 0) return;
-    if (e.target.closest?.(".arrow")) return;
+    if (e.target.closest?.(".shelf-arrow")) return;
     dragging = true;
     snapping = false;
     snapTarget = null;
