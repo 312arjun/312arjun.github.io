@@ -12,6 +12,9 @@ export const CONTACT = {
   location: "Bengaluru, India",
   timezone: "IST (UTC +5:30)",
 
+  // Web3Forms access key — public by design (web3forms.com), safe to ship client-side.
+  web3formsAccessKey: "bff5b1ea-b259-4a30-9dcc-5571f6647b96",
+
   formTitle: "Send a Message",
   formHelper:
     "Have a project in mind, a job opportunity or just want to say hi? Fill out the form and I'll get back to you soon.",

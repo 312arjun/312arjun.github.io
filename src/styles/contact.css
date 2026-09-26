@@ -429,6 +429,12 @@ main {
   box-shadow: 0 10px 32px rgba(255,159,0,.38);
 }
 .btn-send:active { transform: translateY(0); }
+.btn-send:disabled {
+  opacity: .65;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
 
 .or-divider {
   display: flex;

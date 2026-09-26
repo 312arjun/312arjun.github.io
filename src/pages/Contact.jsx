@@ -6,6 +6,7 @@ import "../styles/contact.css";
 export default function Contact() {
   const [status, setStatus] = useState({ type: "", message: "" });
   const [invalid, setInvalid] = useState({});
+  const [sending, setSending] = useState(false);
 
   useEffect(() => {
     document.title = CONTACT.pageTitle || "Arjun Soundarajan � Contact";
@@ -17,7 +18,7 @@ export default function Contact() {
     };
   }, []);
 
-  function onSubmit(e) {
+  async function onSubmit(e) {
     e.preventDefault();
     const form = e.currentTarget;
     const name = form.name.value.trim();
@@ -34,10 +35,47 @@ export default function Contact() {
       setStatus({ type: "error", message: "Please fill in all required fields." });
       return;
     }
-    const body = `Hi Arjun,\n\n${message}\n\n— ${name}\n${email}`;
-    const mailto = `mailto:${CONTACT.email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
-    window.location.href = mailto;
-    setStatus({ type: "ok", message: "Opening your email client…" });
+
+    const key = CONTACT.web3formsAccessKey;
+    if (!key) {
+      // Fallback: no form backend configured, open the visitor's own email client.
+      const body = `Hi Arjun,\n\n${message}\n\n— ${name}\n${email}`;
+      const mailto = `mailto:${CONTACT.email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+      window.location.href = mailto;
+      setStatus({ type: "ok", message: "Opening your email client…" });
+      return;
+    }
+
+    setSending(true);
+    setStatus({ type: "", message: "" });
+    try {
+      const res = await fetch("https://api.web3forms.com/submit", {
+        method: "POST",
+        headers: { "Content-Type": "application/json", Accept: "application/json" },
+        body: JSON.stringify({
+          access_key: key,
+          name,
+          email,
+          subject: `Portfolio contact: ${subject}`,
+          message,
+          from_name: "arjun.runs-on.dev",
+        }),
+      });
+      const data = await res.json();
+      if (data.success) {
+        setStatus({ type: "ok", message: "Message sent — I'll get back to you soon!" });
+        form.reset();
+      } else {
+        throw new Error(data.message || "Submission failed");
+      }
+    } catch (err) {
+      setStatus({
+        type: "error",
+        message: "Couldn't send that — please try emailing me directly instead.",
+      });
+    } finally {
+      setSending(false);
+    }
   }
 
   return (
@@ -125,7 +163,9 @@ export default function Contact() {
                   <textarea id="message" name="message" placeholder="Write your message here..." required />
                 </div>
               </div>
-              <button type="submit" className="btn-send">Send Message →</button>
+              <button type="submit" className="btn-send" disabled={sending}>
+                {sending ? "Sending…" : "Send Message →"}
+              </button>
               <div className={`form-status${status.type ? " " + status.type : ""}`} role="status">{status.message}</div>
             </form>
 
